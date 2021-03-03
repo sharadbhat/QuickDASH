@@ -10,6 +10,7 @@ let port = process.env.PORT || 80
 // app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/public/src/:filename', function(req, res) {
+  res.contentType('mp4')
   res.sendFile(path.join(__dirname, 'public', 'src', req.params.filename));
 });
 
