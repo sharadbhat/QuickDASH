@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.5.20/shaka-player.compiled.js"></script>
+    <title>DASH Example</title>
+  </head>
+  <body>
+    <video id="video"
+          width="640"
+          controls>
+    </video>
+  </body>
+  <script>
+    const manifestUri =
+      'http://localhost:8000/sample-manifest-full.mpd'
+
+    function initApp() {
+      shaka.polyfill.installAll();
+
+      if (shaka.Player.isBrowserSupported()) {
+        initPlayer();
+      } else {
+        console.error('Browser not supported!');
+      }
+    }
+
+    async function initPlayer() {
+      const video = document.getElementById('video');
+      const player = new shaka.Player(video);
+
+      window.player = player;
+
+      player.addEventListener('error', onErrorEvent);
+
+      try {
+        await player.load(manifestUri);
+        console.log('The video has now been loaded!');
+      } catch (e) {
+        onError(e);
+      }
+    }
+
+    function onErrorEvent(event) {
+      onError(event.detail);
+    }
+
+    function onError(error) {
+      console.error('Error code', error.code, 'object', error);
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+
+</html>
