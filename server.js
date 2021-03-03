@@ -9,8 +9,12 @@ let port = process.env.PORT || 80
 // express.static.mime.define({'video/mp4': ['mp4']})
 // app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/public/:filename', function(req, res) {
-  res.sendFile(path.join(__dirname, req.params.filename));
+app.get('/public/src/:filename', function(req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'src', req.params.filename));
+});
+
+app.get('/public/dest/:filename', function(req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'dest', req.params.filename));
 });
 
 app.get('/', (req, res) => {
