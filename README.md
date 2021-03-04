@@ -24,7 +24,7 @@ To run locally,
 # To generate the MPD file (Media Presentation Description)
 ./mpdGenerator.sh
 
-# Install server dependancies
+# Install server dependencies
 npm i
 
 # Start server
